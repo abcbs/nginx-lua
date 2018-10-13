@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    demo: nginx-pod
+  name: nginx-pod
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        demo: nginx-pod
+    spec:
+      containers:
+      - env:
+        - name: SERVER_PORT
+          value: "8899"
+        #- name: ZOOKEEPER_SERVER
+        #  value: zookeeper
+        #image: registry.cn-hangzhou.aliyuncs.com/jingshanlb/dubbo-springboot-consumer:latest
+        image: private.docker.hub:5000/ubuntu:dev-openrest1.11
+        imagePullPolicy: IfNotPresent
+        name: nginx-pod
+        ports:
+        - containerPort: 8088
+      restartPolicy: Always
+
